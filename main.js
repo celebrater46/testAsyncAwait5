@@ -1,9 +1,33 @@
 "use strict";
 
-const asyncReturnSomething = (msg) => {
+// const promiseInPromise = (msg) => {
+//     return new Promise((resolve, reject)=> {
+//         setTimeout(()=> {
+//             console.log("async in promise");
+//             resolve(msg + " Greeting from async in Promise!");
+//         }, 1000);
+//     });
+// }
+
+const asyncInPromise = async(msg) => {
+// const asyncInPromise = (msg) => {
+//     return await promiseInPromise();
     return new Promise((resolve, reject)=> {
         setTimeout(()=> {
-            resolve(msg);
+            console.log("async in promise");
+            resolve(msg + " Greeting from async in Promise!");
+        }, 1000);
+    });
+}
+
+// Promise の中から async() を呼びだす
+const asyncReturnSomething = (msg) => {
+    return new Promise(async(resolve, reject)=> {
+        const newMsg = await asyncInPromise(msg);
+        setTimeout(()=> {
+            // const newMsg = await asyncInPromise(msg);
+            // resolve(msg);
+            resolve(newMsg);
         }, 1000);
     });
 }
